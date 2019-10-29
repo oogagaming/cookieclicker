@@ -1,0 +1,209 @@
+<!DOCTYPE Html>
+<head>
+
+<title>Cookie Clicker</title>
+<style>
+    .cookie {
+        background:url(cookie.png) no-repeat;
+        border: none;
+        width: 479px;
+        height: 499px;
+    }
+    .cookie:active {
+        background-color: transparent;
+        box-shadow: 0 5px transparent;
+        transform: translateY(4px);
+    }
+    .CPC {
+        background:url(cursor.png) no-repeat;
+        border: none;
+        padding: 10px;
+        width: 67px;
+        height: 99px;
+        display: block;
+        top: 50%;
+    }
+    .CPC:active {
+        background-color: transparent; 
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+    body {
+        background:url(background.png) no-repeat;
+    }
+    .CPS {
+        background:url(2cookies.png) no-repeat;
+        border: none;
+        width: 103px;
+        height: 100px;
+    }
+    b {
+        font-size: 15px;
+    }
+    .h1 {
+        font-size: 50px;
+    }
+    .wrapper {
+        background: white;
+        padding: 20px;
+        float: right;
+        height: 100%;
+        width: 140px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        
+    }
+    .NoMoney {
+        float: right;
+        display: none;
+        padding-right: 200px;
+        color: red;
+        
+    }
+    .Counter {
+        display: block;
+    }
+</style>
+</head>
+<body>
+    
+    <div class="wrapper">
+    <button onmousedown="startPS()" onmouseup="stopPS()" class="CPS" onclick="getCookiesPS()" ><b>+1 Cookie Per Second (15$)</b> </button>
+    <button onmousedown ="startPC()" onmouseup="stopPC()" class="CPC" onclick="getCookiesPC()"><b>+1 Cookies Per Click (50$)</b></button>
+</div>
+<div class="stats">
+    <h1><b class="h1" >Cookie Clicker</b></h1>
+<h3 id="cookies"></h3>
+<h3 id="cookiesPS"></h3>
+<h3 id="cookiesPC"></h3>
+    </div>
+    
+    <button onmousedown ="getCookies()"  class="cookie" type="submit" ><b>Get Cookies</b></button>
+    <div class="NoMoney" id="Test"> 
+        <h1>NOT Enough Money!</h1>
+    </div>
+    <p class="Counter" id="counter"></p>
+<script>
+var cookies = 0;
+var cookiesPS = 0;
+var cookiesPC = 1;
+var addInterval;
+var wrapper = document.getElementById('counter');
+var counter;
+var count = 0;
+
+    
+function startPC() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;
+     if (cookies >= 50){
+        cookiesPC += 1
+        cookies -= 50
+    }else {
+       document.getElementById("Test").style.display = "block";
+    }
+    if (addInterval) window.clearTimeout(addInterval)
+  addInterval = setInterval(function cookiesPC() {
+    cookies += cookiesPS;
+  }, 1000)
+    }, 250);
+}
+function stopPC() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+
+function getCookies() {
+    cookies += cookiesPC;
+}    
+    
+setInterval(function renderCookies() {
+
+document.getElementById("cookies").innerHTML = "Cookies: " + cookies;
+
+})
+
+
+setInterval(function renderCookiesPS() {
+
+document.getElementById("cookiesPS").innerHTML = "Cookies per Second: " + cookiesPS;
+
+})
+    
+    setInterval(function renderCookiesPC() {
+
+document.getElementById("cookiesPC").innerHTML = "Cookies per Click: " + cookiesPC;
+
+})
+
+  
+function getCookiesPS() {
+if (cookies >= 15) {
+   cookiesPS += 1;
+    cookies -= 15;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);
+} if (addInterval) window.clearTimeout(addInterval)
+  addInterval = setInterval(function cookiePS() {
+    cookies += cookiesPS;
+  }, 1000);
+}
+
+function getCookiesPC() {
+if (cookies >= 50) {
+   cookiesPC += 1;
+    cookies -= 50;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);
+}
+}
+    
+function startPS() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;    
+    if (cookies >= 15) {
+    cookiesPS += 1;
+    cookies -= 15;
+  } else {
+   document.getElementById("Test").style.display = "block";
+  }
+  if (addInterval) window.clearTimeout(addInterval)
+  addInterval = setInterval(function getCookiesPS() {
+    cookies += cookiesPS;
+  }, 1000)
+}, 250) 
+}
+function stopPS() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+ //function getCookiesPC() {
+   
+    
+    
+    
+    
+    
+    
+</script>
+</body>
+
+
+
+
+<!--
+ <button onclick ="getCookiesPS()" class="CPS" ><b>+1 Cookie Per Second (50$)</b> </button>
+    <button onclick ="getCookiesPC()" class="CPC"><b> +1 Cookies per click (15$)</b></button>
+    <button onclick ="getCookie()" class="CPC"><b> test</b></button>   -->
