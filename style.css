@@ -1,0 +1,132 @@
+    .cookie {
+        background: url(cookie.png) no-repeat;
+        border: none;
+        width: 479px;
+        height: 499px;
+    }
+
+    .cookie:active {
+        background-color: transparent;
+        box-shadow: 0 5px transparent;
+        transform: translateY(4px);
+    }
+
+    .CPC {
+        background: url(cursor.png) no-repeat;
+        border: none;
+        padding: 10px;
+        width: 67px;
+        height: 99px;
+        display: block;
+        top: 50%;
+    }
+
+    .CPC:active {
+        background-color: transparent;
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+
+    .CPS2 {
+        background: url(cOOKIES1.png) no-repeat;
+        border: none;
+        width: 140px;
+        height: 85px;
+
+    }
+
+    .CPS2:active {
+        background-color: transparent;
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+
+    .CPS3 {
+        background: url(Cookies2.png) no-repeat;
+        border: none;
+        width: 140px;
+        height: 140px;
+
+    }
+
+    .CPS3:active {
+        background-color: transparent;
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+
+    body {
+        background: url(background.png) no-repeat;
+    }
+
+    .CPS {
+        background: url(2cookies.png) no-repeat;
+        border: none;
+        width: 103px;
+        height: 100px;
+    }
+
+    .CPS4 {
+        background: url(Cookies3.png) no-repeat;
+        border: none;
+        width: 140px;
+        height: 111px;
+
+    }
+
+    .CPS4:active {
+        background-color: transparent;
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+
+    .CPS5 {
+        background: url(Cookies4.png) no-repeat;
+        border: none;
+        width: 140px;
+        height: 169px;
+
+    }
+
+    .CPS5:active {
+        background-color: transparent;
+        transform: translateY(4px);
+        box-shadow: 0 5px transparent;
+    }
+
+    b {
+        font-size: 15px;
+    }
+
+    .h1 {
+        font-size: 50px;
+    }
+
+    .wrapper {
+        background: white;
+        padding: 20px;
+        float: right;
+        height: 100%;
+        width: 140px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+
+    }
+
+    .NoMoney {
+        float: right;
+        display: none;
+        padding-right: 200px;
+        color: red;
+
+    }
+
+    .Counter {
+        display: none;
+    }
+
+    span {}

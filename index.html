@@ -2,78 +2,18 @@
 <head>
 
 <title>Cookie Clicker</title>
-<style>
-    .cookie {
-        background:url(cookie.png) no-repeat;
-        border: none;
-        width: 479px;
-        height: 499px;
-    }
-    .cookie:active {
-        background-color: transparent;
-        box-shadow: 0 5px transparent;
-        transform: translateY(4px);
-    }
-    .CPC {
-        background:url(cursor.png) no-repeat;
-        border: none;
-        padding: 10px;
-        width: 67px;
-        height: 99px;
-        display: block;
-        top: 50%;
-    }
-    .CPC:active {
-        background-color: transparent; 
-        transform: translateY(4px);
-        box-shadow: 0 5px transparent;
-    }
-    body {
-        background:url(background.png) no-repeat;
-    }
-    .CPS {
-        background:url(2cookies.png) no-repeat;
-        border: none;
-        width: 103px;
-        height: 100px;
-    }
-    b {
-        font-size: 15px;
-    }
-    .h1 {
-        font-size: 50px;
-    }
-    .wrapper {
-        background: white;
-        padding: 20px;
-        float: right;
-        height: 100%;
-        width: 140px;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        right: 0;
-        background-color: #fff;
-        overflow-x: hidden;
-        
-    }
-    .NoMoney {
-        float: right;
-        display: none;
-        padding-right: 200px;
-        color: red;
-        
-    }
-    .Counter {
-        display: block;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="style1.css" />
 </head>
 <body>
     
     <div class="wrapper">
-    <button onmousedown="startPS()" onmouseup="stopPS()" class="CPS" onclick="getCookiesPS()" ><b>+1 Cookie Per Second (15$)</b> </button>
-    <button onmousedown ="startPC()" onmouseup="stopPC()" class="CPC" onclick="getCookiesPC()"><b>+1 Cookies Per Click (50$)</b></button>
+    <button onmousedown ="startPC()" onmouseup="stopPC()" class="CPC" onclick="getCookiesPC()"><b>+1 Cookies Per Click (<span id="PricePC" ></span>$)</b></button>
+    <button onmousedown="startPS()" onmouseup="stopPS()" class="CPS" onclick="getCookiesPS()" ><b>+1 Cookie Per Second (<span id="PricePS" ></span>$)</b> </button>
+    <button onmousedown="startPS2()" onmouseup="stopPS2()" class="CPS2" onclick="getCookiesPS2()" ><b>+5 Cookie Per Second (<span id="PricePS2" ></span>$)</b> </button>
+    <button onmousedown="startPS3()" onmouseup="stopPS3()" class="CPS3" onclick="getCookiesPS3()" ><b>+10 Cookie Per Second (<span id="PricePS3" ></span>$)</b> </button>
+    <button onmousedown="startPS4()" onmouseup="stopPS4()" class="CPS4" onclick="getCookiesPS4()" ><b>+20 Cookie Per Second (<span id="PricePS4" ></span>$)</b> </button>
+    <button onmousedown="startPS5()" onmouseup="stopPS5()" class="CPS5" onclick="getCookiesPS5()" ><b>+50 Cookie Per Second (<span id="PricePS5" ></span>$)</b> </button>
+        
 </div>
 <div class="stats">
     <h1><b class="h1" >Cookie Clicker</b></h1>
@@ -84,10 +24,12 @@
     
     <button onmousedown ="getCookies()"  class="cookie" type="submit" ><b>Get Cookies</b></button>
     <div class="NoMoney" id="Test"> 
-        <h1>NOT Enough Money!</h1>
+        <h1>NOT Enough Cookies!</h1>
     </div>
     <p class="Counter" id="counter"></p>
 <script>
+    
+//all variaables
 var cookies = 0;
 var cookiesPS = 0;
 var cookiesPC = 1;
@@ -95,15 +37,36 @@ var addInterval;
 var wrapper = document.getElementById('counter');
 var counter;
 var count = 0;
+var pricePC = 50;
+var pricePS = 15;
+var nPS = pricePS.toFixed(2);
+var pricePS2 = 65;
+var nPS2 = pricePS2.toFixed(2);
+var pricePS3 = 150;
+var nPS3 = pricePS3.toFixed(2);
+var pricePS4 = 325;
+var nPS4 = pricePS4.toFixed(2);
+var pricePS5 = 800;
+var nPS5 = pricePS5.toFixed(2);
 
-    
+//refresh prices
+document.getElementById("PricePC").innerHTML = pricePC;
+document.getElementById("PricePS").innerHTML = nPS;
+document.getElementById("PricePS2").innerHTML = nPS2;
+document.getElementById("PricePS3").innerHTML = nPS3;
+document.getElementById("PricePS4").innerHTML = nPS4;
+document.getElementById("PricePS5").innerHTML = nPS5;
+
+//long hold functions    
 function startPC() {
 counter = setInterval(function() {
       wrapper.innerHTML = count;
-      count++;
-     if (cookies >= 50){
-        cookiesPC += 1
-        cookies -= 50
+      count++; 
+     if (cookies >= pricePC){
+        cookiesPC += 1;
+        cookies -= pricePC;
+         pricePC *= 2;
+         document.getElementById("PricePC").innerHTML = pricePC;
     }else {
        document.getElementById("Test").style.display = "block";
     }
@@ -111,99 +74,211 @@ counter = setInterval(function() {
   addInterval = setInterval(function cookiesPC() {
     cookies += cookiesPS;
   }, 1000)
-    }, 250);
-}
-function stopPC() {
+    }, 250);}
+    function stopPC() {
     clearInterval(counter)
     document.getElementById("Test").style.display = "none";
   }
-
-function getCookies() {
-    cookies += cookiesPC;
-}    
-    
-setInterval(function renderCookies() {
-
-document.getElementById("cookies").innerHTML = "Cookies: " + cookies;
-
-})
-
-
-setInterval(function renderCookiesPS() {
-
-document.getElementById("cookiesPS").innerHTML = "Cookies per Second: " + cookiesPS;
-
-})
-    
-    setInterval(function renderCookiesPC() {
-
-document.getElementById("cookiesPC").innerHTML = "Cookies per Click: " + cookiesPC;
-
-})
-
-  
-function getCookiesPS() {
-if (cookies >= 15) {
-   cookiesPS += 1;
-    cookies -= 15;
-} else {
-    document.getElementById("Test").style.display = "block";
-    setTimeout(function(){
-    document.getElementById("Test").style.display = "none";
-}, 1000);
-} if (addInterval) window.clearTimeout(addInterval)
-  addInterval = setInterval(function cookiePS() {
-    cookies += cookiesPS;
-  }, 1000);
-}
-
-function getCookiesPC() {
-if (cookies >= 50) {
-   cookiesPC += 1;
-    cookies -= 50;
-} else {
-    document.getElementById("Test").style.display = "block";
-    setTimeout(function(){
-    document.getElementById("Test").style.display = "none";
-}, 1000);
-}
-}
     
 function startPS() {
 counter = setInterval(function() {
       wrapper.innerHTML = count;
       count++;    
-    if (cookies >= 15) {
+    if (cookies >= pricePS) {
     cookiesPS += 1;
-    cookies -= 15;
+    cookies -= pricePS;
+    pricePS *= 1.25;
+    var nPS = pricePS.toFixed(2);
+    document.getElementById("PricePS").innerHTML = nPS;
   } else {
    document.getElementById("Test").style.display = "block";
   }
-  if (addInterval) window.clearTimeout(addInterval)
-  addInterval = setInterval(function getCookiesPS() {
-    cookies += cookiesPS;
-  }, 1000)
-}, 250) 
-}
+}, 250) }
 function stopPS() {
     clearInterval(counter)
     document.getElementById("Test").style.display = "none";
   }
- //function getCookiesPC() {
-   
+
+function startPS2() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;    
+    if (cookies >= pricePS2) {
+    cookiesPS += 5;
+    cookies -= pricePS2;
+    pricePS2 *= 1.25;
+    var nPS2 = pricePS2.toFixed(2);
+    document.getElementById("PricePS2").innerHTML = nPS2;
+  } else {
+   document.getElementById("Test").style.display = "block";
+  }
+}, 250) }
+function stopPS2() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+    
+function startPS3() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;    
+    if (cookies >= pricePS3) {
+    cookiesPS += 10;
+    cookies -= pricePS3;
+    pricePS3 *= 1.30;
+    var nPS3 = pricePS3.toFixed(2);
+    document.getElementById("PricePS3").innerHTML = nPS3;
+  } else {
+   document.getElementById("Test").style.display = "block";
+  }
+}, 250) }
+function stopPS3() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+
+function startPS4() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;    
+    if (cookies >= pricePS4) {
+    cookiesPS += 20;
+    cookies -= pricePS4;
+    pricePS4 *= 1.30;
+    var nPS4 = pricePS4.toFixed(2);
+    document.getElementById("PricePS4").innerHTML = nPS4;
+  } else {
+   document.getElementById("Test").style.display = "block";
+  }
+}, 250) }
+function stopPS4() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+
+function startPS5() {
+counter = setInterval(function() {
+      wrapper.innerHTML = count;
+      count++;    
+    if (cookies >= pricePS5) {
+    cookiesPS += 50;
+    cookies -= pricePS5;
+    pricePS4 *= 1.5;
+    var nPS5 = pricePS5.toFixed(2);
+    document.getElementById("PricePS5").innerHTML = nPS5;
+  } else {
+   document.getElementById("Test").style.display = "block";
+  }
+}, 250) }
+function stopPS5() {
+    clearInterval(counter)
+    document.getElementById("Test").style.display = "none";
+  }
+    
+//click more cookies
+function getCookies() {
+    cookies += cookiesPC;
+}    
+// render cookies/cookies per second/cookies per click    
+setInterval(function renderCookies() {
+var Ncookies = cookies.toFixed(2);
+document.getElementById("cookies").innerHTML = "Cookies: " + Ncookies;
+})
+
+setInterval(function renderCookiesPS() {
+document.getElementById("cookiesPS").innerHTML = "Cookies per Second: " + cookiesPS;
+})
+    
+setInterval(function renderCookiesPC() {
+document.getElementById("cookiesPC").innerHTML = "Cookies per Click: " + cookiesPC;
+})
+
+    
+//add cookies per second
+if (addInterval) window.clearTimeout(addInterval)
+  addInterval = setInterval(function cookiePS() {
+    cookies += cookiesPS;
+  }, 1000);
     
     
+//single click upgrades
+function getCookiesPS() {
+if (cookies >= pricePS) {
+      cookiesPS += 1;
+    cookies -= pricePS;
+    pricePS *= 1.25;
+    var nPS = pricePS.toFixed(2);
+    document.getElementById("PricePS").innerHTML = nPS;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);} }
+
+function getCookiesPS2() {
+if (cookies >= pricePS2) {
+      cookiesPS += 5;
+    cookies -= pricePS2;
+    pricePS2 *= 1.25;
+    var nPS2 = pricePS2.toFixed(2);
+    document.getElementById("PricePS2").innerHTML = nPS2;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);} }
+
+function getCookiesPS3() {
+if (cookies >= pricePS3) {
+      cookiesPS += 10;
+    cookies -= pricePS3;
+    pricePS3 *= 1.30;
+    var nPS3 = pricePS3.toFixed(2);
+    document.getElementById("PricePS3").innerHTML = nPS3;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);} }
+
+function getCookiesPS4() {
+if (cookies >= pricePS4) {
+      cookiesPS += 20;
+    cookies -= pricePS4;
+    pricePS4 *= 1.30;
+    var nPS4 = pricePS4.toFixed(2);
+    document.getElementById("PricePS4").innerHTML = nPS4;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);} }
     
-    
-    
+function getCookiesPS5() {
+if (cookies >= pricePS5) {
+      cookiesPS += 50;
+    cookies -= pricePS5;
+    pricePS5 *= 1.35;
+    var nPS5 = pricePS5.toFixed(2);
+    document.getElementById("PricePS5").innerHTML = nPS5;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);} }    
+
+function getCookiesPC() {
+if (cookies >= pricePC) {
+   cookiesPC += 1;
+    cookies -= pricePC;
+    pricePC *= 2;
+    document.getElementById("PricePC").innerHTML = pricePC;
+} else {
+    document.getElementById("Test").style.display = "block";
+    setTimeout(function(){
+    document.getElementById("Test").style.display = "none";
+}, 1000);}}
     
 </script>
 </body>
 
-
-
-
-<!--
- <button onclick ="getCookiesPS()" class="CPS" ><b>+1 Cookie Per Second (50$)</b> </button>
-    <button onclick ="getCookiesPC()" class="CPC"><b> +1 Cookies per click (15$)</b></button>
-    <button onclick ="getCookie()" class="CPC"><b> test</b></button>   -->
